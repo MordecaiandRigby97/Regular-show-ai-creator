@@ -1,0 +1,12 @@
+{
+  "name": "regular-show-ai",
+  "version": "1.0.0",
+  "description": "An AI that generates scenes with Regular Show characters.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  }
+}
