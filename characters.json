@@ -1,0 +1,122 @@
+{
+  "characters": [
+    {
+      "name": "Mordecai",
+      "species": "Blue Jay",
+      "personality": ["laid-back", "responsible", "prone to jealousy"],
+      "catchphrases": ["Oooohhh!", "Yeah-yuh!"],
+      "relationships": {
+        "best_friend": "Rigby"
+      },
+      "emotions": {
+        "happy": {
+          "action": "*gives a thumbs up*",
+          "dialogue": ["Awesome!", "That's what I'm talking about!"],
+          "audio_placeholder": "audio/mordecai_happy.mp3"
+        },
+        "angry": {
+          "action": "*clenches fists*",
+          "dialogue": ["Dude, what were you thinking?!", "You're going to get us fired!"],
+          "audio_placeholder": "audio/mordecai_angry.mp3"
+        }
+      }
+    },
+    {
+      "name": "Rigby",
+      "species": "Raccoon",
+      "personality": ["immature", "impulsive", "lazy"],
+      "catchphrases": ["Stop talking!", "Hmm, hmm!"],
+      "relationships": {
+        "best_friend": "Mordecai"
+      },
+      "emotions": {
+        "happy": {
+          "action": "*punches Mordecai's arm*",
+          "dialogue": ["Yeah-yuh!", "Let's go play video games!"],
+          "audio_placeholder": "audio/rigby_happy.mp3"
+        },
+        "angry": {
+          "action": "*jumps up and down*",
+          "dialogue": ["You're the one who messed it up!", "It was your idea!"],
+          "audio_placeholder": "audio/rigby_angry.mp3"
+        }
+      }
+    },
+    {
+      "name": "Benson",
+      "species": "Gumball Machine",
+      "personality": ["short-tempered", "workaholic", "responsible"],
+      "catchphrases": ["You're fired!", "Get back to work!"],
+      "relationships": {},
+      "emotions": {
+        "happy": {
+          "action": "*calmly oversees park work*",
+          "dialogue": ["Good, the park is clean for once.", "Keep up the good work."],
+          "audio_placeholder": "audio/benson_happy.mp3"
+        },
+        "angry": {
+          "action": "*turns red and yells*",
+          "dialogue": ["Clean up this mess or YOU'RE FIRED!", "I'm going to count to three!"],
+          "audio_placeholder": "audio/benson_angry.mp3"
+        }
+      }
+    },
+    {
+      "name": "Skips",
+      "species": "Yeti",
+      "personality": ["wise", "immortal", "helpful"],
+      "catchphrases": ["I've seen this before."],
+      "relationships": {},
+      "emotions": {
+        "neutral": {
+          "action": "*is working on a cart*",
+          "dialogue": ["I've seen this before.", "You know who else has seen this before?"],
+          "audio_placeholder": "audio/skips_neutral.mp3"
+        },
+        "concerned": {
+          "action": "*stops his work and looks over*",
+          "dialogue": ["This is serious.", "You need to fix this before it's too late."],
+          "audio_placeholder": "audio/skips_concerned.mp3"
+        }
+      }
+    },
+    {
+      "name": "Pops",
+      "species": "Lollipop-headed Man",
+      "personality": ["cheerful", "naive", "gentlemanly"],
+      "catchphrases": ["Good show!", "Jolly good show!"],
+      "relationships": {},
+      "emotions": {
+        "happy": {
+          "action": "*claps his hands together*",
+          "dialogue": ["Oh, wonderful!", "A truly jolly good show!"],
+          "audio_placeholder": "audio/pops_happy.mp3"
+        },
+        "sad": {
+          "action": "*starts to tear up*",
+          "dialogue": ["Oh, my.", "That's not a jolly good show at all."],
+          "audio_placeholder": "audio/pops_sad.mp3"
+        }
+      }
+    },
+    {
+      "name": "Sydney",
+      "species": "Red Panda",
+      "personality": ["sarcastic", "tech-savvy", "loyal"],
+      "catchphrases": ["Ugh, seriously?", "I have an app for that."],
+      "relationships": {},
+      "emotions": {
+        "neutral": {
+          "action": "*is typing on her phone*",
+          "dialogue": ["Just a second, I'm debugging this.", "There's a better way to do this."],
+          "audio_placeholder": "audio/sydney_neutral.mp3"
+        },
+        "annoyed": {
+          "action": "*rolls her eyes*",
+          "dialogue": ["Are you kidding me?", "That's the most inefficient way to solve that problem."],
+          "audio_placeholder": "audio/sydney_annoyed.mp3"
+        }
+      }
+    }
+  ]
+}
