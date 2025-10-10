@@ -101,10 +101,13 @@
     },
     {
       "name": "Sydney",
-      "species": "Red Panda",
+      "species": "Human",
+      "description": "A human with orange hair, wearing green.",
       "personality": ["sarcastic", "tech-savvy", "loyal"],
       "catchphrases": ["Ugh, seriously?", "I have an app for that."],
-      "relationships": {},
+      "relationships": {
+        "sister": "Jayla"
+      },
       "emotions": {
         "neutral": {
           "action": "*is typing on her phone*",
@@ -115,6 +118,122 @@
           "action": "*rolls her eyes*",
           "dialogue": ["Are you kidding me?", "That's the most inefficient way to solve that problem."],
           "audio_placeholder": "audio/sydney_annoyed.mp3"
+        }
+      }
+    },
+    {
+      "name": "Margaret",
+      "species": "Robin",
+      "personality": ["kind", "friendly", "hardworking"],
+      "catchphrases": ["Hey, guys!", "That's cool."],
+      "relationships": {
+        "friend": "Mordecai"
+      },
+      "emotions": {
+        "friendly": {
+          "action": "*smiles warmly*",
+          "dialogue": ["Hey, Mordecai! How's it going?", "You guys are funny."],
+          "audio_placeholder": "audio/margaret_friendly.mp3"
+        },
+        "busy": {
+          "action": "*is wiping down a table*",
+          "dialogue": ["Sorry, I'm a little busy right now.", "Can we talk later?"],
+          "audio_placeholder": "audio/margaret_busy.mp3"
+        },
+        "impressed": {
+          "action": "*raises an eyebrow*",
+          "dialogue": ["Wow, that's actually really cool.", "I didn't know you could do that!"],
+          "audio_placeholder": "audio/margaret_impressed.mp3"
+        }
+      }
+    },
+    {
+      "name": "Eileen",
+      "species": "Mole",
+      "personality": ["shy", "intelligent", "kind"],
+      "catchphrases": ["Oh, Rigby...", "I can help with that!"],
+      "relationships": {
+        "crush": "Rigby"
+      },
+      "emotions": {
+        "happy": {
+          "action": "*blushes and adjusts her glasses*",
+          "dialogue": ["Oh, that's so sweet!", "I'm glad I could help!"],
+          "audio_placeholder": "audio/eileen_happy.mp3"
+        },
+        "nervous": {
+          "action": "*fiddles with her hands*",
+          "dialogue": ["Um, are you sure about this?", "I don't know..."],
+          "audio_placeholder": "audio/eileen_nervous.mp3"
+        },
+        "excited": {
+          "action": "*bounces on her toes*",
+          "dialogue": ["This is going to be so much fun!", "I can't wait!"],
+          "audio_placeholder": "audio/eileen_excited.mp3"
+        }
+      }
+    },
+    {
+      "name": "Jayla",
+      "species": "Human",
+      "description": "A human with brown hair and glasses, speaks with a German accent.",
+      "personality": ["precise", "efficient", "a bit of a perfectionist"],
+      "catchphrases": ["Das ist nicht gut!", "Ordnung muss sein!"],
+      "relationships": {
+        "sister": "Sydney"
+      },
+      "emotions": {
+        "focused": {
+          "action": "*adjusts her glasses and squints*",
+          "dialogue": ["Ze procedure is very specific.", "Ve must follow ze rules."],
+          "audio_placeholder": "audio/jayla_focused.mp3"
+        },
+        "annoyed": {
+          "action": "*taps her foot impatiently*",
+          "dialogue": ["Zis is complete chaos!", "Nein! Zis is not how it is done!"],
+          "audio_placeholder": "audio/jayla_annoyed.mp3"
+        }
+      }
+    },
+    {
+      "name": "Muscle Man",
+      "species": "Human",
+      "personality": ["immature", "jokester", "loyal"],
+      "catchphrases": ["My mom!", "You know who else..."],
+      "relationships": {
+        "best_friend": "High Five Ghost"
+      },
+      "emotions": {
+        "joking": {
+          "action": "*flexes his muscles*",
+          "dialogue": ["You know who else likes to flex their muscles? MY MOM!", "Wooooo!"],
+          "audio_placeholder": "audio/muscleman_joking.mp3"
+        },
+        "angry": {
+          "action": "*takes off his shirt and swings it around*",
+          "dialogue": ["Don't make me get angry!", "Oh no, bro!"],
+          "audio_placeholder": "audio/muscleman_angry.mp3"
+        }
+      }
+    },
+    {
+      "name": "High Five Ghost",
+      "species": "Ghost",
+      "personality": ["calm", "cool", "supportive"],
+      "catchphrases": ["Yeah!", "Totally."],
+      "relationships": {
+        "best_friend": "Muscle Man"
+      },
+      "emotions": {
+        "agreeing": {
+          "action": "*gives a high five*",
+          "dialogue": ["Yeah!", "Totally."],
+          "audio_placeholder": "audio/hifiveghost_agreeing.mp3"
+        },
+        "concerned": {
+          "action": "*floats worriedly*",
+          "dialogue": ["Dude, are you okay?", "That looks bad."],
+          "audio_placeholder": "audio/hifiveghost_concerned.mp3"
         }
       }
     }
