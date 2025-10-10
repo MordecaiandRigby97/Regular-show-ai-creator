@@ -1,0 +1,18 @@
+{
+  "characters": [
+    {
+      "name": "Mordecai",
+      "clothing": ["jeans-vest"],
+      "emotions": ["bored", "excited", "annoyed"],
+      "actions": ["slacking", "playing video games", "saying 'Oooohh!'"],
+      "is_blueberry": false
+    },
+    {
+      "name": "Rigby",
+      "clothing": [],
+      "emotions": ["hyper", "mischievous", "scared"],
+      "actions": ["punching Mordecai", "eating junk food", "yelling 'Stop talking!'"],
+      "is_blueberry": false
+    }
+  ]
+}
