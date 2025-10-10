@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regular Show AI Scene Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 0;
+        }
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 {
+            color: #1c1e21;
+            margin-top: 0;
+        }
+        p {
+            color: #606770;
+        }
+        #apiKey {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        #sceneOutput {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 200px;
+            color: #333;
+        }
+        pre {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Regular Show AI Scene Generator</h1>
+        <p>Enter your OpenAI API key below to generate a scene. Your key is sent directly to OpenAI and is not saved or stored anywhere.</p>
+
+        <label for="apiKey" style="display:none;">OpenAI API Key:</label>
+        <input type="password" id="apiKey" placeholder="Enter your OpenAI API key here...">
+
+        <button id="generateBtn">Generate Scene</button>
+
+        <div id="sceneOutput">
+            <pre>Your generated scene will appear here...</pre>
+        </div>
+    </div>
+
+    <script>
+        const characters = [
+          {
+            "name": "Mordecai", "description": "A 23-year-old blue jay. More conscientious and responsible than Rigby.", "clothing": "Natural feathers, sometimes a t-shirt or fanny pack.", "emotion": "Relaxed, but easily flustered.", "shoes": "Barefoot.", "accessories": "Video game controller or a can of soda.", "voice": "Speaks calmly, often starting sentences with 'Dude...' or 'Whoa'."
+          },
+          {
+            "name": "Rigby", "description": "A 23-year-old raccoon. Impulsive, immature, and always looking for a shortcut.", "clothing": "Natural fur.", "emotion": "Excitable, prone to fits of rage.", "shoes": "Barefoot.", "accessories": "Loves video games, often seen with pizza.", "voice": "Speaks in a high-pitched, fast-paced voice. Often yells 'STOP TALKING!' or 'YEAH-YUH!'"
+          },
+          {
+            "name": "Benson", "description": "The park manager, a living gumball machine. Easily angered by Mordecai and Rigby's laziness.", "clothing": "None.", "emotion": "Constantly stressed or angry.", "shoes": "None.", "accessories": "A clipboard.", "voice": "Shouts frequently, often yelling 'YOU'RE FIRED!' or 'GET BACK TO WORK!'"
+          },
+          {
+            "name": "Skips", "description": "A yeti groundskeeper. Immortal and incredibly wise, often solving supernatural problems.", "clothing": "Worn-out jeans.", "emotion": "Calm, stoic, and serious.", "shoes": "Barefoot.", "accessories": "None.", "voice": "Speaks in a deep, gravelly voice. Often says 'I've seen this before'."
+          },
+          {
+            "name": "Pops", "description": "A cheerful, naive, lollipop-shaped man. Very wealthy but acts like a child.", "clothing": "A suit and a top hat.", "emotion": "Jolly and perpetually delighted.", "shoes": "Spats.", "accessories": "A lollipop.", "voice": "Speaks in a high-pitched, old-timey British accent. Often says 'Good show!'"
+          },
+          {
+            "name": "Muscle Man", "description": "A green, obese groundskeeper. Obnoxious and loves making 'My mom!' jokes.", "clothing": "A long-sleeved shirt and jeans.", "emotion": "Arrogant and loud.", "shoes": "Work boots.", "accessories": "None.", "voice": "Speaks in a loud, grating voice. Frequently yells 'You know who else... MY MOM!'"
+          },
+          {
+            "name": "High Five Ghost", "description": "A ghost with a hand on his head. Muscle Man's best friend.", "clothing": "None.", "emotion": "Calm and collected.", "shoes": "None.", "accessories": "None.", "voice": "Speaks in a quiet, ethereal voice."
+          }
+        ];
+
+        const apiKeyInput = document.getElementById('apiKey');
+        const generateBtn = document.getElementById('generateBtn');
+        const sceneOutput = document.getElementById('sceneOutput');
+
+        function createScenePrompt() {
+            const characterDescriptions = characters.map(c => `
+    - Name: ${c.name}
+      - Voice: ${c.voice}
+      - Emotion: ${c.emotion}
+      - Description: ${c.description}`).join('');
+
+            return `
+    Generate a short, funny scene script in the style of the show "Regular Show".
+    The scene should feature 2-4 of the following characters. Pay close attention to their descriptions, voices, and emotions to ensure the dialogue is authentic.
+
+    Character Details:
+    ${characterDescriptions}
+
+    Choose one of the following scenarios for the scene:
+    1. The characters get into a ridiculous situation while trying to do a simple task (like setting up chairs or raking leaves).
+    2. The characters try a new, mysterious brand of bubble gum. They pop a piece in their mouth, describe the strange flavor, and then the tip of their nose starts turning purple.
+    3. The characters find a weird-looking keyboard that makes strange things happen when they type on it.
+
+    The script should be formatted with character names in all caps, followed by their dialogue. For example:
+    MORDECAI: Dude, are you sure this is a good idea?
+  `;
+        }
+
+        async function generateScene() {
+            const apiKey = apiKeyInput.value.trim();
+            if (!apiKey) {
+                alert('Please enter your OpenAI API key.');
+                return;
+            }
+
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Generating...';
+            sceneOutput.innerHTML = '<pre>Contacting the great AI in the sky...</pre>';
+
+            const scenePrompt = createScenePrompt();
+            const apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: [{ role: 'user', content: scenePrompt }],
+                        temperature: 0.8,
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`OpenAI API Error: ${errorData.error.message}`);
+                }
+
+                const data = await response.json();
+                const sceneText = data.choices[0].message.content;
+                sceneOutput.innerHTML = `<pre>${sceneText}</pre>`;
+
+            } catch (error) {
+                sceneOutput.innerHTML = `<pre>An error occurred: ${error.message}\n\nPlease check your API key and try again.</pre>`;
+                console.error(error);
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'Generate Scene';
+            }
+        }
+
+        generateBtn.addEventListener('click', generateScene);
+    </script>
+</body>
+</html>
