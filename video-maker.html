@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Maker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+      margin: 0;
+    }
+    #sidebar {
+      width: 200px;
+      border-right: 1px solid #ccc;
+      padding: 10px;
+      background-color: #f0f0f0;
+    }
+    #stage {
+      flex-grow: 1;
+      background-color: #e0e0e0;
+      position: relative; /* Needed for positioning characters */
+    }
+    h2 {
+        text-align: center;
+        margin-top: 0;
+    }
+    .character {
+        width: 80px;
+        height: 80px;
+        margin: 10px auto;
+        border: 2px solid #333;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        cursor: grab;
+        position: relative;
+    }
+    #mordecai { background-color: #6495ED; }
+    #rigby { background-color: #964B00; }
+    #benson { background-color: #DC143C; }
+    #skips { background-color: #FFFFFF; }
+    #pops { background-color: #FFC0CB; }
+    #muscle-man { background-color: #2E8B57; }
+    #high-five-ghost { background-color: #D3D3D3; opacity: 0.8; }
+    #margaret { background-color: #FF69B4; }
+    #eileen { background-color: #D2B48C; }
+    #sydney { background-color: #FFA500; }
+    .eye {
+        width: 10px;
+        height: 10px;
+        background-color: #008000;
+        border-radius: 50%;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+    #control-panel {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background-color: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: none; /* Hidden by default */
+    }
+    #control-panel label {
+        display: block;
+        margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h2>Characters</h2>
+    <div id="character-list">
+        <div id="mordecai" class="character" draggable="true">Mordecai</div>
+        <div id="rigby" class="character" draggable="true">Rigby</div>
+        <div id="benson" class="character" draggable="true">Benson</div>
+        <div id="skips" class="character" draggable="true">Skips</div>
+        <div id="pops" class="character" draggable="true">Pops</div>
+        <div id="muscle-man" class="character" draggable="true">Muscle Man</div>
+        <div id="high-five-ghost" class="character" draggable="true">Fives</div>
+        <div id="margaret" class="character" draggable="true">Margaret</div>
+        <div id="eileen" class="character" draggable="true">Eileen</div>
+        <div id="sydney" class="character" draggable="true">Sydney<div class="eye"></div></div>
+    </div>
+  </div>
+  <div id="stage">
+    <div id="control-panel">
+        <h3>Controls</h3>
+        <label>X: <input type="number" id="x-control"></label>
+        <label>Y: <input type="number" id="y-control"></label>
+    </div>
+  </div>
+
+  <script>
+    const characters = document.querySelectorAll('.character');
+    const stage = document.getElementById('stage');
+
+    let draggedItem = null;
+
+    characters.forEach(character => {
+      character.addEventListener('dragstart', (e) => {
+        draggedItem = e.target;
+        setTimeout(() => {
+            e.target.style.display = 'none';
+        }, 0);
+      });
+
+      character.addEventListener('dragend', (e) => {
+        setTimeout(() => {
+            draggedItem.style.display = 'flex';
+            draggedItem = null;
+        }, 0);
+      });
+    });
+
+    stage.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+
+    stage.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+    });
+
+    stage.addEventListener('drop', (e) => {
+      const newChar = draggedItem.cloneNode(true);
+      newChar.removeAttribute('id');
+      newChar.style.position = 'absolute';
+      newChar.style.display = 'flex'; /* Make the cloned character visible */
+      newChar.style.left = `${e.clientX - stage.offsetLeft - 40}px`;
+      newChar.style.top = `${e.clientY - stage.offsetTop - 40}px`;
+      stage.appendChild(newChar);
+
+      newChar.addEventListener('click', (clickEvent) => {
+        const controlPanel = document.getElementById('control-panel');
+        const xControl = document.getElementById('x-control');
+        const yControl = document.getElementById('y-control');
+
+        controlPanel.style.display = 'block';
+
+        let selectedChar = clickEvent.currentTarget;
+
+        xControl.value = parseInt(selectedChar.style.left);
+        yControl.value = parseInt(selectedChar.style.top);
+
+        xControl.oninput = () => {
+            selectedChar.style.left = `${xControl.value}px`;
+        };
+        yControl.oninput = () => {
+            selectedChar.style.top = `${yControl.value}px`;
+        };
+      });
+    });
+  </script>
+</body>
+</html>
