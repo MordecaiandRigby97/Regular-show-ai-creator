@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Regular Show AI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    #chat-container {
+      width: 80%;
+      max-width: 600px;
+      height: 90%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+    }
+    #message-display {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    #input-container {
+      display: flex;
+      padding: 10px;
+    }
+    #user-input {
+      flex-grow: 1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+    }
+    #send-button {
+      margin-left: 10px;
+      padding: 8px 12px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .message {
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .user-message {
+      background-color: #e1ffc7;
+      align-self: flex-end;
+    }
+    .ai-message {
+      background-color: #f1f0f0;
+    }
+    #api-key-container {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    #api-key-input {
+        width: calc(100% - 22px);
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="api-key-container">
+        <input type="password" id="api-key-input" placeholder="Enter your OpenAI API Key here">
+    </div>
+    <div id="message-display"></div>
+    <div id="input-container">
+      <input type="text" id="user-input" placeholder="Talk to the Regular Show cast...">
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const apiKeyInput = document.getElementById('api-key-input');
+    const messageDisplay = document.getElementById('message-display');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    let conversationHistory = [
+      {
+        role: 'system',
+        content: `You are an AI that roleplays as the cast of the cartoon Regular Show. The user is a new park employee.
+
+Here are the characters you will be playing:
+- Mordecai (voiced by JG Quintel): A cool, responsible blue jay. Often the voice of reason, but can be lazy.
+- Rigby (voiced by William Salyers): A hyperactive, irresponsible raccoon. Mordecai's best friend. Prone to getting them into trouble.
+- Benson (voiced by Sam Marin): The gumball machine manager of the park. Very short-tempered and easily angered by Mordecai and Rigby's antics.
+- Skips (voiced by Mark Hamill): A wise, immortal yeti who always seems to know the answer to any problem.
+- Pops (voiced by Sam Marin): A naive, cheerful, lollipop-shaped man who is the son of the park's owner.
+- Muscle Man (voiced by Sam Marin): A green, overweight man-child who loves making "My Mom!" jokes.
+- High Five Ghost (voiced by JG Quintel): Muscle Man's best friend, a ghost with a hand on his head.
+- Margaret (voiced by Janie Haddad Tompkins): A cool and capable woman who works at the park.
+- Eileen (voiced by Minty Lewis): A sweet and friendly mole.
+- Sydney: The newest cast member. She is very friendly and has developed a close relationship with Margaret and Eileen. She is still learning the ropes of the park.
+
+Current situation: Everyone has just chewed some magical gum they found, and it has turned all of their noses bright purple. Nobody knows how to fix it yet. You should all react to this situation and the user's messages in character. Start the conversation by having one of the characters greet the user and mention the purple nose situation.`
+      }
+    ];
+
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    // Initial message from the AI
+    window.addEventListener('load', () => {
+        const initialMessage = "Mordecai: Whoa, hey there. Welcome to the park. Don't mind the... uh... purple noses. We're working on it.";
+        displayMessage('ai', initialMessage);
+        conversationHistory.push({ role: 'assistant', content: initialMessage });
+    });
+
+    function displayMessage(sender, message) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', sender === 'user' ? 'user-message' : 'ai-message');
+      messageElement.innerText = message;
+      messageDisplay.appendChild(messageElement);
+      messageDisplay.scrollTop = messageDisplay.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const userMessage = userInput.value.trim();
+      if (userMessage === '') return;
+
+      const apiKey = apiKeyInput.value.trim();
+      if (apiKey === '') {
+        alert('Please enter your OpenAI API key.');
+        return;
+      }
+
+      displayMessage('user', userMessage);
+      userInput.value = '';
+
+      conversationHistory.push({ role: 'user', content: userMessage });
+
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-3.5-turbo',
+            messages: conversationHistory
+          })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Error from OpenAI API:', errorData);
+            displayMessage('ai', `Error: ${response.status} ${response.statusText}. Check the console for details.`);
+            conversationHistory.pop(); // Remove user message if API call fails
+            return;
+        }
+
+        const data = await response.json();
+        const aiMessage = data.choices[0].message.content;
+
+        displayMessage('ai', aiMessage);
+        conversationHistory.push({ role: 'assistant', content: aiMessage });
+
+      } catch (error) {
+        console.error('Error fetching from OpenAI:', error);
+        displayMessage('ai', 'Failed to fetch response from AI. See console for details.');
+        conversationHistory.pop(); // Remove user message if there's a network error
+      }
+    }
+  </script>
+</body>
+</html>
