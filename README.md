@@ -32,14 +32,21 @@ Run the CLI to print the character descriptions, story beats, and storyboard. By
 command also exports a storyboard, frames, and an assembled "video" to `exports/latest`:
 
 ```bash
-python -m regular_show_app.main
+python -m regular_show_app
 ```
 
 Use `--export` to choose a different directory, or `--assemble` to override the assembled
 file name. Pass `--skip-export` if you only want console output without writing any files:
 
 ```bash
-python -m regular_show_app.main --export out/project --assemble out/video.txt
+python -m regular_show_app --export out/project --assemble out/video.txt
+```
+
+If you install the package with `pip install -e .`, the convenience command
+`regular-show-creator` is also available:
+
+```bash
+regular-show-creator --skip-export
 ```
 
 ## Tests
