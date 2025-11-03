@@ -33,6 +33,11 @@ def run_cli() -> None:
         type=Path,
         help="Optional destination file to stitch generated frames into a pseudo-video.",
     )
+    parser.add_argument(
+        "--skip-export",
+        action="store_true",
+        help="Print details without writing storyboard and frames to disk.",
+    )
     args = parser.parse_args()
 
     characters = default_characters()
@@ -55,14 +60,18 @@ def run_cli() -> None:
     print("=== Movie Maker Storyboard ===")
     print(project.storyboard())
 
-    if args.export:
-        storyboard_path = export_project(project, args.export)
-        print(f"\nExported storyboard to {storyboard_path}")
-        frames_dir = args.export / "frames"
-        if args.assemble:
-            frame_files = sorted(frames_dir.glob("scene_*.txt"))
-            assemble_video(frame_files, args.assemble)
-            print(f"Assembled pseudo-video at {args.assemble}")
+    if args.skip_export:
+        return
+
+    export_dir = args.export or Path("exports/latest")
+    storyboard_path = export_project(project, export_dir)
+    print(f"\nExported storyboard to {storyboard_path}")
+    frames_dir = export_dir / "frames"
+    frame_files = sorted(frames_dir.glob("scene_*.txt"))
+
+    assemble_target = args.assemble or (export_dir / "assembled_video.txt")
+    assemble_video(frame_files, assemble_target)
+    print(f"Assembled pseudo-video at {assemble_target}")
 
 
 if __name__ == "__main__":

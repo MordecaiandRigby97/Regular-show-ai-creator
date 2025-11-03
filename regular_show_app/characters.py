@@ -34,15 +34,18 @@ class Character:
     hair_color: str
     eye_color: str
     outfits: List[Outfit] = field(default_factory=list)
+    traits: List[str] = field(default_factory=list)
 
     def add_outfit(self, outfit: Outfit) -> None:
         self.outfits.append(outfit)
 
     def describe(self) -> str:
         outfit_descriptions = "\n".join(f"  - {outfit.describe()}" for outfit in self.outfits)
+        traits_line = f"Traits: {', '.join(self.traits)}\n" if self.traits else ""
         return (
             f"{self.name} (voiced by {self.voice_actor})\n"
             f"Hair: {self.hair_color}, Eyes: {self.eye_color}\n"
+            f"{traits_line}"
             f"Outfits:\n{outfit_descriptions or '  - No outfits yet.'}"
         )
 
@@ -144,7 +147,31 @@ def default_characters() -> List[Character]:
         )
     )
 
-    return [sydney, janie, emily, mordecai, rigby]
+    jayla = Character(
+        name="Jayla",
+        voice_actor="Minty Lewis",
+        hair_color="short brown hair",
+        eye_color="blue",
+        traits=["thick-rimmed glasses", "braces", "visible acne"],
+    )
+    jayla.add_outfit(
+        Outfit(
+            name="Mischief Maker",
+            clothing_items=[
+                ClothingItem("Dirty Hoodie", "Splattered with paint from the park art wall."),
+                ClothingItem(
+                    "Scuffed Sneakers",
+                    "Caked in mud from Jayla's shortcut through the community garden.",
+                ),
+                ClothingItem(
+                    "Backpack of Tricks",
+                    "Stuffed with pranks that always seem to appear at the worst moment.",
+                ),
+            ],
+        )
+    )
+
+    return [sydney, janie, emily, mordecai, rigby, jayla]
 
 
 def list_voice_actors() -> List[str]:
@@ -158,5 +185,6 @@ def list_voice_actors() -> List[str]:
         "Linda Cardellini",
         "Courtenay Taylor",
         "Ashley Johnson",
+        "Minty Lewis",
     ]
 

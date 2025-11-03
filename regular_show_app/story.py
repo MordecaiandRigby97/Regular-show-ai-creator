@@ -23,7 +23,13 @@ class Scene:
 def babysitting_story() -> List[Scene]:
     """Construct the canonical story requested by the user."""
 
-    sydney, janie, emily, mordecai, rigby = default_characters()[:5]
+    characters = {character.name: character for character in default_characters()}
+    sydney = characters["Sydney"]
+    janie = characters["Janie"]
+    emily = characters["Emily Rose"]
+    mordecai = characters["Mordecai"]
+    rigby = characters["Rigby"]
+    jayla = characters["Jayla"]
 
     return [
         Scene(
@@ -43,19 +49,44 @@ def babysitting_story() -> List[Scene]:
             characters=[janie, mordecai, rigby],
         ),
         Scene(
+            title="Jayla's Messy Arrival",
+            description=(
+                "Jayla stomps into the studio with dirty clothes, scuffed shoes, and a smirk, "
+                "teasing Janie until art supplies scatter across the floor."
+            ),
+            characters=[jayla, janie, rigby],
+        ),
+        Scene(
+            title="Janie Storms Out",
+            description=(
+                "Embarrassed and upset, Janie drops her satchel, abandons the storyboard, and storms "
+                "out for fresh air while Sydney's team scrambles to calm Jayla down."
+            ),
+            characters=[janie, jayla, mordecai],
+        ),
+        Scene(
+            title="Crew Mediation",
+            description=(
+                "Mordecai and Rigby coach Jayla through a heartfelt apology, wiping away smudges and "
+                "inviting her to help rebuild the toppled set before Janie returns."
+            ),
+            characters=[jayla, mordecai, rigby],
+        ),
+        Scene(
             title="Emily's Adventure",
             description=(
-                "Emily Rose leads an imagination quest through the park, trying on outfits and "
-                "recording adorable voice clips for Sydney's movie maker."
+                "Emily Rose turns the tension into playtime, guiding Jayla through a calmer craft "
+                "session while Janie documents the moment for Sydney's video generator."
             ),
-            characters=[emily, rigby],
+            characters=[emily, jayla, janie],
         ),
         Scene(
             title="Director's Return",
             description=(
-                "Sydney wraps filming with the Regular Show voice cast and returns to find Emily and "
-                "Janie editing their footage together in the video generator studio."
+                "Sydney wraps filming with the Regular Show voice cast and returns to find Jayla "
+                "and Janie editing their footage together in the video generator studio while Emily "
+                "cheers them on."
             ),
-            characters=[sydney, janie, emily, mordecai],
+            characters=[sydney, janie, emily, jayla, mordecai],
         ),
     ]

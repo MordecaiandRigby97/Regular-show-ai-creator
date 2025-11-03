@@ -54,31 +54,61 @@ def create_default_project() -> MovieProject:
     """Build a movie project around the babysitting story arc."""
 
     project = MovieProject(title="Sydney's Babysitting Adventure")
-    for scene in Scene.__annotations__:  # type: ignore[attr-defined]
-        pass  # placeholder to keep coverage tools quiet if imported without execution
 
     from .story import babysitting_story
 
     for scene in babysitting_story():
         project.add_scene(scene)
 
+    def find_character(name: str) -> Character:
+        for scene in project.scenes:
+            for character in scene.characters:
+                if character.name == name:
+                    return character
+        raise ValueError(f"Character {name!r} not found in project scenes")
+
+    sydney = find_character("Sydney")
+    janie = find_character("Janie")
+    emily = find_character("Emily Rose")
+    mordecai = find_character("Mordecai")
+    rigby = find_character("Rigby")
+    jayla = find_character("Jayla")
+
     # Sample voice lines using the Regular Show actors
     project.add_voice_line(
         VoiceLine(
             text="Janie, could you watch Emily while I wrangle Mordecai and Rigby?",
-            performed_by=project.scenes[0].characters[0],  # Sydney
+            performed_by=sydney,
         )
     )
     project.add_voice_line(
         VoiceLine(
             text="Don't worry, Sydney! Emily and I will make the cutest behind-the-scenes video ever!",
-            performed_by=project.scenes[0].characters[1],  # Janie
+            performed_by=janie,
         )
     )
     project.add_voice_line(
         VoiceLine(
             text="Rigby, keep that mic steady! Emily's laugh is gold!",
-            performed_by=project.scenes[1].characters[1],  # Mordecai
+            performed_by=mordecai,
+        )
+    )
+    project.add_voice_line(
+        VoiceLine(
+            text="What? A little mud never hurt a storyboard!",
+            performed_by=jayla,
+        )
+    )
+    project.add_voice_line(
+        VoiceLine(
+            text="Hey Jayla, how about using that energy to help me rebuild the set?",
+            performed_by=rigby,
+        )
+    )
+    project.add_voice_line(
+        VoiceLine(
+            text="Group hug! Let's film a make-up montage before Mom gets back!",
+            performed_by=emily,
         )
     )
 

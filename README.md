@@ -2,13 +2,14 @@
 
 This project is a playful command line experience that imagines a movie maker and video generator
 built around the voice actors of *Regular Show*. It focuses on Sydney asking Janie to babysit her
-daughter Emily Rose while she directs a new park commercial. The app highlights outfits, accessories,
-and a pseudo video production pipeline.
+daughter Emily Rose while she directs a new park commercial, only to have the messy prankster Jayla
+crash the set. The app highlights outfits, accessories, dramatic tension, and a pseudo video
+production pipeline.
 
 ## Features
 
 - Character profiles featuring Regular Show voice actors and unique outfits
-- Story beats that follow Sydney, Janie, and Emily Rose through their babysitting adventure
+- Jayla's chaotic arrival, complete with messy accessories and a resolution arc with Janie
 - A movie maker storyboard complete with voice lines from the cast
 - A mock video generator that exports ASCII "frames" and assembles them into a stitched document
 
@@ -27,13 +28,15 @@ pip install -e .
 
 ## Usage
 
-Run the CLI to print the character descriptions, story beats, and storyboard:
+Run the CLI to print the character descriptions, story beats, and storyboard. By default the
+command also exports a storyboard, frames, and an assembled "video" to `exports/latest`:
 
 ```bash
 python -m regular_show_app.main
 ```
 
-You can also export the storyboard and frames, and optionally assemble the pseudo video:
+Use `--export` to choose a different directory, or `--assemble` to override the assembled
+file name. Pass `--skip-export` if you only want console output without writing any files:
 
 ```bash
 python -m regular_show_app.main --export out/project --assemble out/video.txt
