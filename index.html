@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regular Show Story Studio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Regular Show Story Studio</h1>
+      <p>
+        Build short films starring the Regular Show crew, customize their looks and
+        moods, and storyboard your next adventure. Sydney joins the park pals as a
+        brand-new character!
+      </p>
+    </header>
+
+    <main class="app-main">
+      <section class="panel" aria-labelledby="character-setup">
+        <div class="panel-header">
+          <h2 id="character-setup">Character setup</h2>
+          <p>Select a cast member and tailor their vibe for the current scene.</p>
+        </div>
+
+        <form id="character-form" class="form-grid">
+          <label for="character-select">Character</label>
+          <select id="character-select" required>
+            <option value="" disabled selected>Select a character</option>
+            <option value="Mordecai">Mordecai</option>
+            <option value="Rigby">Rigby</option>
+            <option value="Benson">Benson</option>
+            <option value="Pops">Pops</option>
+            <option value="Skips">Skips</option>
+            <option value="Muscle Man">Muscle Man</option>
+            <option value="Hi-Five Ghost">Hi-Five Ghost</option>
+            <option value="Eileen">Eileen</option>
+            <option value="CJ">CJ</option>
+            <option value="Sydney">Sydney</option>
+          </select>
+
+          <label for="emotion-select">Emotion</label>
+          <select id="emotion-select" required>
+            <option value="" disabled selected>Pick an emotion</option>
+            <option>Excited</option>
+            <option>Confident</option>
+            <option>Annoyed</option>
+            <option>Goofy</option>
+            <option>Heroic</option>
+            <option>Spooked</option>
+            <option>Determined</option>
+            <option>Chill</option>
+          </select>
+
+          <label for="action-input">Action</label>
+          <input
+            id="action-input"
+            name="action"
+            type="text"
+            placeholder="e.g. skateboard grind, flipping burgers"
+            maxlength="80"
+          />
+
+          <label for="clothing-input">Clothing</label>
+          <input
+            id="clothing-input"
+            name="clothing"
+            type="text"
+            placeholder="e.g. retro varsity jacket"
+            maxlength="80"
+          />
+
+          <label for="accessories-input">Accessories</label>
+          <input
+            id="accessories-input"
+            name="accessories"
+            type="text"
+            placeholder="e.g. neon headphones, cosmic watch"
+            maxlength="80"
+          />
+
+          <label for="shoes-input">Shoes</label>
+          <input
+            id="shoes-input"
+            name="shoes"
+            type="text"
+            placeholder="e.g. jet-powered sneakers"
+            maxlength="80"
+          />
+
+          <label for="dialogue-input">Dialogue or beat</label>
+          <textarea
+            id="dialogue-input"
+            name="dialogue"
+            rows="3"
+            placeholder="Add a line of dialogue or describe the beat"
+            maxlength="220"
+          ></textarea>
+
+          <label for="backdrop-select">Backdrop</label>
+          <select id="backdrop-select">
+            <option value="Park">Park</option>
+            <option value="Arcade">Arcade</option>
+            <option value="Concert Stage">Concert Stage</option>
+            <option value="Space Temple">Space Temple</option>
+            <option value="Moon Base">Moon Base</option>
+            <option value="Dream Sequence">Dream Sequence</option>
+          </select>
+
+          <label for="duration-input">Beat length (seconds)</label>
+          <input
+            id="duration-input"
+            type="number"
+            min="1"
+            max="60"
+            value="6"
+            required
+          />
+
+          <button type="submit" class="btn primary">Add to scene</button>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="scene-board">
+        <div class="panel-header">
+          <h2 id="scene-board">Scene board</h2>
+          <p>
+            Stack multiple character beats to craft a full scene, then drop the scene
+            into your short film timeline.
+          </p>
+        </div>
+
+        <div id="scene-beats" class="card-list" aria-live="polite"></div>
+
+        <div class="scene-actions">
+          <button id="clear-beats" class="btn ghost" type="button">Clear beats</button>
+          <button id="save-scene" class="btn secondary" type="button">
+            Save scene to timeline
+          </button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="timeline">
+        <div class="panel-header">
+          <h2 id="timeline">Film timeline</h2>
+          <p>Arrange your scenes and export a quick pitch deck for the crew.</p>
+        </div>
+
+        <div id="timeline-scenes" class="card-list"></div>
+
+        <div class="scene-actions">
+          <button id="clear-timeline" class="btn ghost" type="button">
+            Clear timeline
+          </button>
+          <button id="export-film" class="btn primary" type="button">
+            Export story outline
+          </button>
+        </div>
+
+        <section aria-labelledby="export-output" class="export-output">
+          <h3 id="export-output">Story outline</h3>
+          <textarea id="export-text" readonly rows="8" aria-live="polite"></textarea>
+        </section>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>
+        Tip: Mix and match emotions, outfits, and set pieces to give each scene a fresh
+        tone. Sydney loves music tech and blends right into band-centric plots!
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
