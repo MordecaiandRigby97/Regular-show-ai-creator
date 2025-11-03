@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Regular Show AI Voice Actor App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      text-align: center;
+      padding: 2em;
+    }
+    #apiKey {
+      padding: 0.5em;
+      width: 50%;
+      margin-bottom: 1em;
+    }
+    button {
+      padding: 0.5em 1em;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 2em;
+      padding: 1em;
+      border: 1px solid #ccc;
+      background-color: white;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>Regular Show AI Voice Actor App</h1>
+  <p>Enter your OpenAI API Key:</p>
+  <input type="text" id="apiKey" placeholder="Your API Key">
+  <button onclick="generateScene()">Generate Scene</button>
+  <div id="output"></div>
+
+  <script>
+    const characters = {
+      "Mordecai": {
+        "species": "Blue Jay",
+        "voice": "Calm, laid-back",
+        "emotions": ["chill", "serious", "can get angry"],
+        "clothes": ["none"],
+        "accessories": ["none"],
+        "hair": "none",
+        "shoes": "none"
+      },
+      "Rigby": {
+        "species": "Raccoon",
+        "voice": "Hyperactive, high-pitched",
+        "emotions": ["excitable", "lazy", "immature"],
+        "clothes": ["none"],
+        "accessories": ["none"],
+        "hair": "spiky brown fur on head",
+        "shoes": "none"
+      },
+      "Sydney": {
+        "species": "Human",
+        "voice": "Calm, motherly",
+        "emotions": ["caring", "friendly", "a little tired"],
+        "clothes": ["jeans", "a t-shirt"],
+        "accessories": ["a necklace"],
+        "hair": "orange",
+        "eyes": "green",
+        "shoes": "sneakers"
+      },
+      "Emily Rose": {
+        "species": "Human",
+        "voice": "Young, energetic",
+        "emotions": ["playful", "curious"],
+        "clothes": ["a pink dress"],
+        "accessories": ["a hair bow"],
+        "hair": "blonde",
+        "shoes": "sandals"
+      },
+      "Jaylan": {
+        "species": "Human",
+        "voice": "Young, shy",
+        "emotions": ["quiet", "observant"],
+        "clothes": ["overalls"],
+        "accessories": ["a teddy bear"],
+        "hair": "brown",
+        "shoes": "boots"
+      },
+      "Janie": {
+          "species": "Human",
+          "voice": "Friendly, welcoming",
+          "emotions": ["happy", "kind"],
+          "clothes": ["a casual dress"],
+          "accessories": ["earrings"],
+          "hair": "black",
+          "shoes": "flats"
+      },
+      "Jayla": {
+        "species": "Human",
+        "voice": "Monotone, sarcastic",
+        "emotions": ["annoyed", "bored"],
+        "clothes": ["dirty clothes"],
+        "accessories": ["glasses", "braces"],
+        "hair": "short brown",
+        "eyes": "blue",
+        "shoes": "dirty shoes",
+        "other": "acne on her face"
+      }
+    };
+
+    async function generateScene() {
+      const apiKey = document.getElementById('apiKey').value;
+      const outputDiv = document.getElementById('output');
+
+      if (!apiKey) {
+        outputDiv.innerHTML = 'Please enter your OpenAI API key.';
+        return;
+      }
+
+      const prompt = `
+        Create a script for a scene from Regular Show.
+
+        **Characters:**
+
+        *   **Sydney:** A new cast member. She has ${characters.Sydney.hair} hair and ${characters.Sydney.eyes} eyes. She is a ${characters.Sydney.emotions.join(', ')} mother. She is wearing ${characters.Sydney.clothes.join(' and ')}.
+        *   **Emily Rose:** Sydney's daughter. She is young and energetic with ${characters['Emily Rose'].hair} hair. She is wearing ${characters['Emily Rose'].clothes.join(' and ')}.
+        *   **Jaylan:** Sydney's other daughter. She is young and shy with ${characters.Jaylan.hair} hair. She is wearing ${characters.Jaylan.clothes.join(' and ')} and holding a teddy bear.
+        *   **Janie:** A friendly and welcoming character with ${characters.Janie.hair} hair.
+        *   **Jayla:** Sydney's sister. She has ${characters.Jayla.hair} hair, ${characters.Jayla.eyes} eyes, wears ${characters.Jayla.accessories.join(' and ')}, and has ${characters.Jayla.other}. She is wearing ${characters.Jayla.clothes.join(' and ')}.
+
+        **Scene:**
+
+        Sydney brings her daughters, Emily Rose and Jaylan, to meet Janie for the first time. Sydney's sister, Jayla, is also with them. The scene should describe their actions, emotions, and dialogue. Use the character descriptions to inform their behavior and speech. For example, Emily Rose might be excited, while Jaylan is quiet and observational. Sydney is calm and motherly, Janie is warm and welcoming, and Jayla should act bored and sarcastic.
+      `;
+
+      outputDiv.innerHTML = 'Generating scene...';
+
+      try {
+        const response = await fetch('https://api.openai.com/v1/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: 'text-davinci-003',
+            prompt: prompt,
+            max_tokens: 500
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.choices && data.choices.length > 0) {
+          outputDiv.innerHTML = data.choices[0].text;
+        } else {
+          outputDiv.innerHTML = 'Error: Could not generate a response from the API.';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        outputDiv.innerHTML = 'An error occurred while trying to contact the OpenAI API.';
+      }
+    }
+  </script>
+</body>
+</html>
