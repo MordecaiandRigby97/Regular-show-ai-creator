@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light dark;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1f2933;
+  background-color: #f5f7fa;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app__tagline {
+  margin-top: 0.5rem;
+  color: #52606d;
+}
+
+.voice-actor-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.voice-actor-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.voice-actor-card__header h2 {
+  margin: 0;
+}
+
+.voice-actor-card__characters {
+  margin: 0.25rem 0 0;
+  color: #334155;
+  font-weight: 600;
+}
+
+.voice-actor-card__bio {
+  margin: 0;
+  color: #475569;
+}
+
+.voice-actor-card__link {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.voice-actor-card__link:focus,
+.voice-actor-card__link:hover {
+  text-decoration: underline;
+}
+
+.voice-actor-card__audio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.voice-actor-card__audio-label {
+  font-weight: 600;
+}
+
+.app__footer {
+  margin-top: auto;
+  text-align: center;
+  color: #64748b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #e2e8f0;
+    background-color: #0f172a;
+  }
+
+  .voice-actor-card {
+    background: #1e293b;
+    box-shadow: 0 10px 20px rgba(2, 6, 23, 0.4);
+  }
+
+  .voice-actor-card__link {
+    color: #93c5fd;
+  }
+
+  .app__footer {
+    color: #cbd5f5;
+  }
+}
