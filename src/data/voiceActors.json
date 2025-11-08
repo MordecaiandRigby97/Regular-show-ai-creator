@@ -1,0 +1,30 @@
+[
+  {
+    "name": "J.G. Quintel",
+    "characters": ["Mordecai", "High Five Ghost"],
+    "biography": "Series creator J.G. Quintel not only developed Regular Show but also lent his voice to Mordecai and High Five Ghost, infusing the show with his own comedic timing and indie sensibilities.",
+    "sampleAudioUrl": "/audio/jg-quintel.mp3",
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/J._G._Quintel"
+  },
+  {
+    "name": "William Salyers",
+    "characters": ["Rigby"],
+    "biography": "William Salyers brought Rigby to life with a frenetic yet heartfelt performance that helped anchor the show's offbeat humor.",
+    "sampleAudioUrl": "/audio/william-salyers.mp3",
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/William_Salyers"
+  },
+  {
+    "name": "Sam Marin",
+    "characters": ["Benson", "Pops", "Muscle Man"],
+    "biography": "Sam Marin delivered a range of voices for fan favorites like Benson, Pops, and Muscle Man, showcasing his versatile character work each episode.",
+    "sampleAudioUrl": "/audio/sam-marin.mp3",
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Sam_Marin"
+  },
+  {
+    "name": "Mark Hamill",
+    "characters": ["Skips"],
+    "biography": "Legendary actor Mark Hamill gave Skips his signature gravelly warmth, adding depth to the show's most dependable immortal yeti.",
+    "sampleAudioUrl": "/audio/mark-hamill.mp3",
+    "moreInfoUrl": "https://en.wikipedia.org/wiki/Mark_Hamill"
+  }
+]
