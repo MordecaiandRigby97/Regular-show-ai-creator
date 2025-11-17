@@ -64,6 +64,7 @@ const youtubeLinkInput = document.getElementById('youtubeLink');
 const shareBanner = document.getElementById('shareBanner');
 const studioLinkInput = document.getElementById('studioLinkInput');
 const copyStudioLinkButton = document.getElementById('copyStudioLink');
+const studioLinkAnchor = document.getElementById('studioLinkAnchor');
 
 const STORAGE_KEY = 'regular-show-arrangements';
 let arrangements = [];
@@ -223,8 +224,14 @@ function resolveStudioLink() {
 }
 
 function updateStudioLinkField() {
-  if (!studioLinkInput) return;
-  studioLinkInput.value = resolveStudioLink();
+  const link = resolveStudioLink();
+  if (studioLinkInput) {
+    studioLinkInput.value = link;
+  }
+  if (studioLinkAnchor) {
+    studioLinkAnchor.href = link;
+    studioLinkAnchor.textContent = link;
+  }
 }
 
 async function handleStudioLinkCopy() {

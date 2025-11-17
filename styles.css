@@ -209,14 +209,13 @@ main {
 }
 
 .studio-link__controls {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .studio-link__controls input {
-  flex: 1;
-  min-width: 220px;
+  width: 100%;
   border-radius: 0.75rem;
   border: 1px solid #c7cfda;
   padding: 0.5rem 0.75rem;
@@ -233,6 +232,27 @@ main {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(255, 139, 255, 0.4);
+}
+
+.studio-link__anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 2px dashed rgba(44, 4, 73, 0.3);
+  color: #2c0449;
+  font-weight: 700;
+  text-decoration: none;
+  background: #ffe9ff;
+  word-break: break-word;
+}
+
+.studio-link__anchor:hover,
+.studio-link__anchor:focus-visible {
+  border-color: #ff8bff;
+  outline: none;
+  background: #ffd9ff;
 }
 
 .arrangements {
