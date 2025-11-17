@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regular Show Voice Actors Project</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <p class="badge">Celebrating the talent behind Regular Show</p>
+        <h1>Regular Show Voice Actor Showcase</h1>
+        <p>
+          A playful dossier that spotlights the actors, their movie and story work,
+          fan-made episodes, and Sydney — an original character with vibrant
+          orange hair and curious green eyes.
+        </p>
+      </div>
+      <img src="https://upload.wikimedia.org/wikipedia/en/2/2c/Regular_Show_-_The_First_Day.jpg" alt="Regular Show style art" />
+    </header>
+
+    <main>
+      <section>
+        <div class="section-title">
+          <h2>Voice Actor Lineup</h2>
+          <p>Tap a card to hear why each actor is beloved by fans.</p>
+        </div>
+        <div id="actor-grid" class="card-grid"></div>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h2>Movies & Story Highlights</h2>
+          <p>Where the voices wandered outside the park.</p>
+        </div>
+        <div id="stories" class="stories"></div>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h2>Fan Episodes</h2>
+          <p>Community-made adventures starring the original cast.</p>
+        </div>
+        <ol id="episodes" class="timeline"></ol>
+      </section>
+
+      <section class="sydney">
+        <div>
+          <p class="badge">Original Character Spotlight</p>
+          <h2>Sydney</h2>
+          <p>
+            Sydney is a dimension-hopping archivist with radiant orange hair and
+            luminous green eyes that shimmer whenever she uncovers a new story.
+            She curates the actor dossiers, records interviews, and even voices a
+            few fan-episode cameos.
+          </p>
+          <ul>
+            <li>Role: Curator & narrator</li>
+            <li>Signature Item: Holographic scrapbook</li>
+            <li>Catchphrase: "Every voice hides a new story!"</li>
+          </ul>
+        </div>
+        <div class="sydney__portrait" aria-hidden="true">
+          <div class="hair"></div>
+          <div class="face">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+            <div class="smile"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Created for fans of Regular Show voice actors everywhere.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
