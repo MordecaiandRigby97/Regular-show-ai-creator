@@ -185,6 +185,15 @@ main {
   box-shadow: 0 10px 25px rgba(70, 56, 255, 0.2);
 }
 
+.share-banner {
+  margin: 0.5rem 0 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.9rem;
+  background: rgba(70, 56, 255, 0.1);
+  color: #3124c9;
+  font-weight: 600;
+}
+
 .arrangements {
   margin-top: 1.5rem;
   display: grid;
@@ -261,6 +270,16 @@ main {
   font-weight: 600;
   color: #4638ff;
   text-decoration: none;
+}
+
+.arrangement-share {
+  border: 1px solid rgba(70, 56, 255, 0.4);
+  background: white;
+  color: #4638ff;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .arrangement-delete {

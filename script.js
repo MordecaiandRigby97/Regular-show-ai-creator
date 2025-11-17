@@ -59,9 +59,14 @@ const searchInput = document.getElementById('searchInput');
 const form = document.getElementById('arrangerForm');
 const projectNotes = document.getElementById('projectNotes');
 const projectType = document.getElementById('projectType');
+const songTitleInput = document.getElementById('songTitle');
+const youtubeLinkInput = document.getElementById('youtubeLink');
+const shareBanner = document.getElementById('shareBanner');
 
 const STORAGE_KEY = 'regular-show-arrangements';
 let arrangements = [];
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 
 function populateSelect(select, { includePlaceholder = false } = {}) {
   const placeholder = includePlaceholder
@@ -164,6 +169,8 @@ function renderArrangements() {
     link.href = entry.youtubeLink;
     const iframe = node.querySelector('.arrangement-embed');
     iframe.src = entry.embedUrl;
+    const shareButton = node.querySelector('.arrangement-share');
+    shareButton.addEventListener('click', () => handleShareClick(entry, shareButton));
     node.querySelector('.arrangement-delete').addEventListener('click', () => {
       arrangements = arrangements.filter((item) => item.id !== entry.id);
       persistArrangements();
@@ -171,6 +178,56 @@ function renderArrangements() {
     });
     arrangementsNode.appendChild(node);
   });
+}
+
+function encodeSharePayload(entry) {
+  const payload = {
+    lead: entry.lead,
+    songTitle: entry.songTitle,
+    background: entry.background,
+    projectType: entry.projectType,
+    notes: entry.notes,
+    youtubeLink: entry.youtubeLink,
+  };
+  const json = JSON.stringify(payload);
+  const binary = encoder.encode(json);
+  let binaryString = '';
+  binary.forEach((byte) => {
+    binaryString += String.fromCharCode(byte);
+  });
+  const base64 = btoa(binaryString)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+  return base64;
+}
+
+function decodeSharePayload(value) {
+  const base64 = value.replace(/-/g, '+').replace(/_/g, '/');
+  const pad = base64.length % 4 === 0 ? '' : '='.repeat(4 - (base64.length % 4));
+  const binaryString = atob(base64 + pad);
+  const bytes = Uint8Array.from(binaryString, (char) => char.charCodeAt(0));
+  const json = decoder.decode(bytes);
+  return JSON.parse(json);
+}
+
+function createShareLink(entry) {
+  const payload = encodeSharePayload(entry);
+  const { origin, pathname } = window.location;
+  return `${origin}${pathname}?project=${payload}`;
+}
+
+async function handleShareClick(entry, button) {
+  const link = createShareLink(entry);
+  try {
+    await navigator.clipboard.writeText(link);
+    button.textContent = 'Link copied!';
+    setTimeout(() => {
+      button.textContent = 'Copy share link';
+    }, 2000);
+  } catch (error) {
+    window.prompt('Copy this link:', link); // fallback
+  }
 }
 
 function handleSearch(event) {
@@ -192,12 +249,12 @@ function extractYouTubeId(url) {
 function handleSubmit(event) {
   event.preventDefault();
   const leadActor = voiceActors[Number(leadSelect.value)];
-  const songTitle = document.getElementById('songTitle').value.trim();
+  const songTitle = songTitleInput.value.trim();
   const background = backgroundSelects.map((select) => {
     const actor = voiceActors[Number(select.value)];
     return actor?.name ?? '';
   });
-  const youtubeLink = document.getElementById('youtubeLink').value.trim();
+  const youtubeLink = youtubeLinkInput.value.trim();
   const notes = projectNotes.value.trim();
   const type = projectType.value;
 
@@ -239,12 +296,51 @@ function handleSubmit(event) {
   setDefaultBackgrounds(leadIndex);
   renderArrangements();
   persistArrangements();
+  shareBanner.hidden = true;
+}
+
+function applySharedProjectFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const shared = params.get('project');
+  if (!shared) return false;
+  try {
+    const payload = decodeSharePayload(shared);
+    const leadIndex = voiceActors.findIndex((actor) => actor.name === payload.lead);
+    if (leadIndex >= 0) {
+      leadSelect.value = leadIndex.toString();
+    }
+    updateBackgroundSelectStates();
+    payload.background.forEach((name, idx) => {
+      const actorIndex = voiceActors.findIndex((actor) => actor.name === name);
+      if (actorIndex >= 0 && backgroundSelects[idx]) {
+        backgroundSelects[idx].value = actorIndex.toString();
+      }
+    });
+    songTitleInput.value = payload.songTitle ?? '';
+    youtubeLinkInput.value = payload.youtubeLink ?? '';
+    projectNotes.value = payload.notes ?? '';
+    if (payload.projectType) {
+      projectType.value = payload.projectType;
+    }
+    shareBanner.hidden = false;
+    updateBackgroundSelectStates();
+    params.delete('project');
+    const newUrl = `${window.location.pathname}${params.toString() ? `?${params}` : ''}`;
+    window.history.replaceState({}, '', newUrl);
+    return true;
+  } catch (error) {
+    console.warn('Unable to load shared arrangement', error);
+    return false;
+  }
 }
 
 function init() {
   populateAllVoiceSelects();
   arrangements = getStoredArrangements();
-  setDefaultBackgrounds(Number(leadSelect.value) || 0);
+  const sharedLoaded = applySharedProjectFromUrl();
+  if (!sharedLoaded) {
+    setDefaultBackgrounds(Number(leadSelect.value) || 0);
+  }
   renderVoiceActors(voiceActors);
   renderArrangements();
   searchInput.addEventListener('input', handleSearch);
