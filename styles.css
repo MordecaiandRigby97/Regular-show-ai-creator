@@ -1,0 +1,365 @@
+:root {
+  font-family: 'Changa', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  color: #0b0f19;
+  background-color: #f5f5f8;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 1.5rem 4rem;
+  background: radial-gradient(circle at top, #e8f4ff, #fdf5ff 65%, #f8f9fc);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  border-radius: 1.25rem;
+}
+
+.hero {
+  margin: 1.5rem auto 2rem;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #4638ff, #ff8bff);
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  box-shadow: 0 20px 35px rgba(63, 31, 104, 0.4);
+}
+
+.hero__content h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+main {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  box-shadow: 0 12px 30px rgba(10, 15, 25, 0.08);
+}
+
+.panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+}
+
+.search input {
+  margin-top: 0.25rem;
+  border-radius: 999px;
+  border: 1px solid #c7cfda;
+  padding: 0.35rem 0.75rem;
+}
+
+.grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #f8fbff;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #4638ff;
+  box-shadow: 0 10px 25px rgba(70, 56, 255, 0.15);
+}
+
+.card__header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.card__header .role {
+  margin: 0.15rem 0 0.5rem;
+  color: #566178;
+  font-size: 0.9rem;
+}
+
+.card .bio {
+  font-size: 0.9rem;
+  color: #364152;
+  min-height: 60px;
+}
+
+.tag-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag-list li {
+  background: rgba(70, 56, 255, 0.1);
+  color: #4638ff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.75rem;
+  font-size: 0.8rem;
+}
+
+.arranger__form {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.arranger__form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 0.9rem;
+  gap: 0.25rem;
+}
+
+.arranger__form input,
+.arranger__form select,
+.arranger__form textarea {
+  border-radius: 0.9rem;
+  border: 1px solid #c7cfda;
+  padding: 0.45rem 0.75rem;
+  font-size: 1rem;
+}
+
+.arranger__form textarea {
+  resize: vertical;
+}
+
+.background-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+}
+
+.arranger__form button {
+  margin-top: 0.5rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #4638ff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.arranger__form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(70, 56, 255, 0.2);
+}
+
+.share-banner {
+  margin: 0.5rem 0 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.9rem;
+  background: rgba(70, 56, 255, 0.1);
+  color: #3124c9;
+  font-weight: 600;
+}
+
+.studio-link {
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #f1f5ff;
+  border: 1px solid rgba(70, 56, 255, 0.2);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.studio-link h3 {
+  margin: 0 0 0.25rem;
+}
+
+.studio-link__controls {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.studio-link__controls input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #c7cfda;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  background: white;
+}
+
+.studio-link__controls button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  background: #ff8bff;
+  color: #2c0449;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 139, 255, 0.4);
+}
+
+.studio-link__anchor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  border: 2px dashed rgba(44, 4, 73, 0.3);
+  color: #2c0449;
+  font-weight: 700;
+  text-decoration: none;
+  background: #ffe9ff;
+  word-break: break-word;
+}
+
+.studio-link__anchor:hover,
+.studio-link__anchor:focus-visible {
+  border-color: #ff8bff;
+  outline: none;
+  background: #ffd9ff;
+}
+
+.arrangements {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.arrangement-card {
+  border: 1px solid #e3e8f7;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fafbff;
+}
+
+.arrangement-card header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.arrangement-title {
+  margin: 0;
+}
+
+.arrangement-lead {
+  margin: 0;
+  color: #566178;
+}
+
+.arrangement-type {
+  margin: 0.35rem 0 0;
+  font-weight: 600;
+  color: #4638ff;
+}
+
+.arrangement-bgv {
+  margin: 0.5rem 0;
+  color: #364152;
+}
+
+.arrangement-notes {
+  margin: 0 0 0.75rem;
+  color: #4b5567;
+  font-size: 0.95rem;
+}
+
+.arrangement-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(10, 15, 25, 0.08);
+  margin-bottom: 0.75rem;
+}
+
+.arrangement-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.arrangement-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arrangement-link {
+  font-weight: 600;
+  color: #4638ff;
+  text-decoration: none;
+}
+
+.arrangement-share {
+  border: 1px solid rgba(70, 56, 255, 0.4);
+  background: white;
+  color: #4638ff;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.arrangement-delete {
+  border: none;
+  background: #ff5f6d;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 6px 15px rgba(255, 95, 109, 0.3);
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0 1rem 2rem;
+  }
+
+  .hero {
+    padding: 1rem;
+  }
+}

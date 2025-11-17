@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regular Show Voice Actor Creator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">Regular Show Voice Actors</p>
+        <h1>Projects, music, movies, and fan videos in one creative studio</h1>
+        <p>
+          Explore what the cast of Regular Show is working on and arrange fresh
+          musical collaborations. Pick a voice actor, layer three background
+          vocals, add a YouTube link, and share the vibe with your crew.
+        </p>
+      </div>
+      <img src="https://upload.wikimedia.org/wikipedia/en/3/31/Regular_Show_-_Season_3_DVD.jpg" alt="Regular Show art" />
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="panel__header">
+          <h2>Voice actor projects</h2>
+          <p>Tap a card to pre-fill the song arranger.</p>
+          <label class="search">
+            <span>Search</span>
+            <input type="text" id="searchInput" placeholder="Find Mordecai, Rigby, Skips..." />
+          </label>
+        </div>
+        <div id="voiceActorGrid" class="grid"></div>
+      </section>
+
+      <section class="panel arranger">
+        <div class="panel__header">
+          <h2>Build a song</h2>
+          <p>
+            Choose the lead, set three background vocals, and attach a YouTube
+            karaoke or instrumental link.
+          </p>
+        </div>
+        <p id="shareBanner" class="share-banner" aria-live="polite" hidden>
+          Shared arrangement loaded. Tweak anything and save it to keep a copy!
+        </p>
+        <div class="studio-link" aria-live="polite">
+          <div>
+            <h3>Need the working link?</h3>
+            <p>Copy the studio URL and send it to friends so they can open the same app.</p>
+          </div>
+          <div class="studio-link__controls">
+            <input id="studioLinkInput" type="text" readonly aria-label="Studio link" />
+            <button type="button" id="copyStudioLink">Copy studio link</button>
+            <a
+              id="studioLinkAnchor"
+              class="studio-link__anchor"
+              href="#"
+              target="_blank"
+              rel="noopener"
+            ></a>
+          </div>
+        </div>
+        <form id="arrangerForm" class="arranger__form">
+          <label>
+            Lead voice actor
+            <select id="leadSelect" required></select>
+          </label>
+          <label>
+            Song or movie title
+            <input type="text" id="songTitle" placeholder="My Regular Jam" required />
+          </label>
+          <label>
+            Project type
+            <select id="projectType" required>
+              <option value="Music video">Music video</option>
+              <option value="Fan movie">Fan movie</option>
+              <option value="Behind-the-scenes">Behind-the-scenes</option>
+              <option value="Remix drop">Remix drop</option>
+            </select>
+          </label>
+          <div class="background-wrapper">
+            <label>
+              Background vocal 1
+              <select class="background-select" id="bgv1" required></select>
+            </label>
+            <label>
+              Background vocal 2
+              <select class="background-select" id="bgv2" required></select>
+            </label>
+            <label>
+              Background vocal 3
+              <select class="background-select" id="bgv3" required></select>
+            </label>
+          </div>
+          <label>
+            YouTube link
+            <input type="url" id="youtubeLink" placeholder="https://www.youtube.com/watch?v=..." required />
+          </label>
+          <label>
+            Scene notes
+            <textarea id="projectNotes" rows="3" placeholder="What should this collab sound or look like?"></textarea>
+          </label>
+          <button type="submit">Save arrangement</button>
+        </form>
+        <div id="arrangements" class="arrangements"></div>
+      </section>
+    </main>
+
+    <template id="voiceActorTemplate">
+      <article class="card">
+        <div class="card__header">
+          <h3></h3>
+          <p class="role"></p>
+        </div>
+        <p class="bio"></p>
+        <ul class="tag-list"></ul>
+      </article>
+    </template>
+
+    <template id="arrangementTemplate">
+      <article class="arrangement-card">
+        <header>
+          <h3 class="arrangement-title"></h3>
+          <p class="arrangement-lead"></p>
+        </header>
+        <p class="arrangement-type"></p>
+        <p class="arrangement-bgv"></p>
+        <p class="arrangement-notes"></p>
+        <div class="arrangement-video">
+          <iframe
+            class="arrangement-embed"
+            src=""
+            title="YouTube preview"
+            loading="lazy"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="arrangement-actions">
+          <a class="arrangement-link" href="#" target="_blank" rel="noopener">Open on YouTube</a>
+          <button type="button" class="arrangement-share">Copy share link</button>
+          <button type="button" class="arrangement-delete">Delete</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
