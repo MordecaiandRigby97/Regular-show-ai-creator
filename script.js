@@ -44,7 +44,7 @@ const voiceActors = [
   {
     name: 'Sydney Park',
     roles: 'Morgan / Teen ensemble',
-    bio: 'Actor-musician who voiced Morgan and lends bright R&B hooks plus playful improv energy.',
+    bio: 'Actor-musician with striking orange hair and green eyes who voiced Morgan and lends bright R&B hooks plus playful improv energy.',
     tags: ['Teen scene anthems', 'R&B hooks', 'Dance challenges'],
   },
 ];
@@ -62,11 +62,14 @@ const projectType = document.getElementById('projectType');
 const songTitleInput = document.getElementById('songTitle');
 const youtubeLinkInput = document.getElementById('youtubeLink');
 const shareBanner = document.getElementById('shareBanner');
+const studioLinkInput = document.getElementById('studioLinkInput');
+const copyStudioLinkButton = document.getElementById('copyStudioLink');
 
 const STORAGE_KEY = 'regular-show-arrangements';
 let arrangements = [];
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
+const DEFAULT_STUDIO_LINK = 'http://localhost:4173';
 
 function populateSelect(select, { includePlaceholder = false } = {}) {
   const placeholder = includePlaceholder
@@ -211,10 +214,40 @@ function decodeSharePayload(value) {
   return JSON.parse(json);
 }
 
+function resolveStudioLink() {
+  const { origin, pathname, protocol } = window.location;
+  if (protocol === 'file:' || origin === 'null') {
+    return DEFAULT_STUDIO_LINK;
+  }
+  return `${origin}${pathname}`;
+}
+
+function updateStudioLinkField() {
+  if (!studioLinkInput) return;
+  studioLinkInput.value = resolveStudioLink();
+}
+
+async function handleStudioLinkCopy() {
+  if (!studioLinkInput || !copyStudioLinkButton) return;
+  const link = studioLinkInput.value || resolveStudioLink();
+  try {
+    await navigator.clipboard.writeText(link);
+    copyStudioLinkButton.textContent = 'Studio link copied!';
+  } catch (error) {
+    studioLinkInput.select();
+    document.execCommand('copy');
+  } finally {
+    setTimeout(() => {
+      copyStudioLinkButton.textContent = 'Copy studio link';
+    }, 2000);
+  }
+}
+
 function createShareLink(entry) {
   const payload = encodeSharePayload(entry);
-  const { origin, pathname } = window.location;
-  return `${origin}${pathname}?project=${payload}`;
+  const base = resolveStudioLink();
+  const separator = base.includes('?') ? '&' : '?';
+  return `${base}${separator}project=${payload}`;
 }
 
 async function handleShareClick(entry, button) {
@@ -346,6 +379,13 @@ function init() {
   searchInput.addEventListener('input', handleSearch);
   form.addEventListener('submit', handleSubmit);
   leadSelect.addEventListener('change', updateBackgroundSelectStates);
+  updateStudioLinkField();
+  if (copyStudioLinkButton) {
+    copyStudioLinkButton.addEventListener('click', handleStudioLinkCopy);
+  }
+  if (studioLinkInput) {
+    studioLinkInput.addEventListener('focus', () => studioLinkInput.select());
+  }
 }
 
 init();
