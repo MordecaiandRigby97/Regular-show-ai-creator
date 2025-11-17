@@ -187,6 +187,11 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
+      .media-item a {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
       footer {
         text-align: center;
         padding: 3rem 2rem 4rem;
@@ -365,7 +370,8 @@
         <h2 class="section-title">Floyd Sneed Media Studio</h2>
         <p>
           Log fresh ideas for movies, interviews, documentaries, and other tributes. Use the form to
-          capture working titles, collaborators, and what each project does for Floyd's legacy.
+          capture working titles, collaborators, and what each project does for Floyd's legacy, then
+          attach a working link so fans can immediately visit the footage or article you reference.
         </p>
         <div class="media-actions" role="tablist" aria-label="Media categories">
           <button class="active" data-type="movie" role="tab">Movies</button>
@@ -385,6 +391,15 @@
           <label>
             Collaborators or Hosts
             <input type="text" id="hosts" placeholder="Regular Show host, band member, etc." />
+          </label>
+          <label>
+            Working Link (optional)
+            <input
+              type="url"
+              id="link"
+              placeholder="https://example.com/floyd-session"
+              inputmode="url"
+            />
           </label>
           <label>
             Category
@@ -450,18 +465,21 @@
             "J.G. Quintel maps out a tour doc stitched with animated drum diagrams and restored 16mm footage.",
           hosts: "J.G. Quintel, archival crew",
           category: "movie",
+          link: "https://en.wikipedia.org/wiki/Floyd_Sneed",
         },
         {
           title: "Rigby Asks the Rhythm Section",
           description: "William Salyers corrals Joe Schermie stories about locking in with Floyd's kick.",
           hosts: "William Salyers, Joe Schermie",
           category: "interview",
+          link: "https://www.youtube.com/watch?v=Fq3QmtV8vT0",
         },
         {
           title: "Skips' Legacy Walk",
           description: "Mark Hamill narrates a guided museum audio tour covering Floyd's art, charity, and murals.",
           hosts: "Mark Hamill, Sydney Greenspoon",
           category: "other",
+          link: "https://www.latimes.com/entertainment-arts/music/story/2023-01-28/three-dog-night-drummer-floyd-sneed-dead",
         },
       ];
 
@@ -481,6 +499,11 @@
                 <h3>${entry.title}</h3>
                 <p>${entry.description}</p>
                 <p><strong>Hosted by:</strong> ${entry.hosts || "Community"}</p>
+                ${
+                  entry.link
+                    ? `<p><a href="${entry.link}" target="_blank" rel="noopener noreferrer">Open working link ↗</a></p>`
+                    : ""
+                }
               </article>
             `
           )
@@ -501,6 +524,7 @@
         const title = document.getElementById("title").value.trim();
         const description = document.getElementById("description").value.trim();
         const hosts = document.getElementById("hosts").value.trim();
+        const link = document.getElementById("link").value.trim();
         const category = document.getElementById("category").value;
 
         if (!title || !description) {
@@ -508,7 +532,7 @@
           return;
         }
 
-        mediaEntries.unshift({ title, description, hosts, category });
+        mediaEntries.unshift({ title, description, hosts, category, link });
         activeFilter = category;
         tabs.forEach((btn) => {
           btn.classList.toggle("active", btn.dataset.type === category);
